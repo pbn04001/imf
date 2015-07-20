@@ -1,0 +1,366 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.peternelson</groupId>
+	<artifactId>app_internationalMonetaryFund</artifactId>
+	<packaging>war</packaging>
+	<version>1.0.0</version>
+	<name>app_internationalMonetaryFund</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jackson.version>2.3.1</jackson.version>
+		<springframework.version>4.0.2.RELEASE</springframework.version>
+		<webapp.dir>src/main/webapp</webapp.dir>
+		<slf4j.version>1.6.6</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Spring Framework 4 dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- Excel Reader -->
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6.12</version>
+		</dependency>
+
+		<!-- JACKSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Caching -->
+		<dependency>
+			<groupId>com.googlecode.ehcache-spring-annotations</groupId>
+			<artifactId>ehcache-spring-annotations</artifactId>
+			<version>1.2.0-M1</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>${artifactId}</finalName>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					<packagingExcludes>
+						resources/css/,
+						resources/js/,
+						resources/img/,
+                        temporary/,
+                        versioned/${app.version}/css/,
+                        versioned/${app.version}/js/
+					</packagingExcludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7.2</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0-alpha-1</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>src/main/resources/app.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<delete dir="${webapp.dir}\versioned" includeemptydirs="true" />
+								<delete dir="${webapp.dir}\temporary" includeemptydirs="true" />
+								<mkdir dir="${webapp.dir}\versioned\${app.version}" />
+								<mkdir dir="${webapp.dir}\temporary" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- copy application files for preparation to combine/compress -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>copy-js-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${webapp.dir}/temporary/css</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${webapp.dir}/resources/css</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-css-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${webapp.dir}/temporary/js</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${webapp.dir}/resources/js</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-img-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${webapp.dir}/versioned/${app.version}/img</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${webapp.dir}/resources/img</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- combine and compress files -->
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<executions>
+					<execution>
+						<id>combine-minify-files</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compress</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<nosuffix>true</nosuffix>
+					<outputDirectory>${webapp.dir}/versioned/${app.version}</outputDirectory>
+					<sourceDirectory>${webapp.dir}/temporary</sourceDirectory>
+					<linebreakpos>16000</linebreakpos>
+					<includes>
+						<include>**/*.js</include>
+						<include>**/*.css</include>
+					</includes>
+					<aggregations>
+						<aggregation>
+							<removeIncluded>true</removeIncluded>
+							<insertNewLine>true</insertNewLine>
+							<output>${webapp.dir}/versioned/${app.version}/minified/imf.min.js</output>
+							<!-- files to include, path relative to output's directory or absolute path -->
+							<inputDir>${webapp.dir}/versioned/${app.version}/js</inputDir>
+							<includes>
+								<include>**/*.js</include>
+							</includes>
+						</aggregation>
+						<aggregation>
+							<removeIncluded>true</removeIncluded>
+							<insertNewLine>true</insertNewLine>
+							<output>${webapp.dir}/versioned/${app.version}/minified/imf.min.css</output>
+							<!-- files to include, path relative to output's directory or absolute path -->
+							<inputDir>${webapp.dir}/versioned/${app.version}/css</inputDir>
+							<includes>
+								<include>**/*.css</include>
+							</includes>
+						</aggregation>
+
+					</aggregations>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>delete-temporary-files</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<delete dir="${webapp.dir}\versioned\${app.version}\css" includeemptydirs="true" />
+								<delete dir="${webapp.dir}\versioned\${app.version}\js" includeemptydirs="true" />
+								<delete dir="${webapp.dir}\temporary" includeemptydirs="true" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <execution>
+                        <id>clean-resources-2</id>
+                        <phase>clean</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <followSymLinks>false</followSymLinks>
+                    <filesets>
+                        <fileset>
+                            <directory>${webapp.dir}/temporary</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${webapp.dir}/versioned</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+
+
+		</plugins>
+	</build>
+</project>
+

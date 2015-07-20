@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">    
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache eternal="true" maxElementsInMemory="100" overflowToDisk="false" />
+
+	<cache name="allCountries" maxElementsInMemory="1000" eternal="false" overflowToDisk="false" timeToIdleSeconds="0"/>
+	<cache name="countrySelectList" maxElementsInMemory="1000" eternal="false" overflowToDisk="false" timeToIdleSeconds="0"/>
+	<cache name="statisticSelectList" maxElementsInMemory="1000" eternal="false" overflowToDisk="false" timeToIdleSeconds="0"/>
+	<cache name="countryByISO" maxElementsInMemory="1000" eternal="false" overflowToDisk="false" timeToIdleSeconds="0"/>
+</ehcache>

@@ -1,0 +1,45 @@
+@media screen and (max-width: 850px){
+    /* charts */
+    .highcharts-container{padding-top: 50px !important;}
+
+    /* menu */
+    .imf-menu li{padding: 7px 10px 2px 10px; margin-right: 10px;}
+    .imf-menu li a{font-size: .9em;}
+
+    /* common */
+    .imf-container{margin:10px;}
+
+    /* country page */
+    .imf-country-container-left{position: absolute;background: url('../img/menu-icon-dots.svg') no-repeat center right;background-size: 3px 20px; top: 20px;
+        right: 25px;z-index:50; width: 20px; height: 20px !important; margin:0px; padding:0px; overflow: visible;
+        /* shadow */ -webkit-box-shadow: none;  -moz-box-shadow: none;  box-shadow: none;}
+    .imf-country-container-left .imfs-filter-holder{padding: 10px; display:none;position: absolute; top: 0px; right: 0px; height: auto !important; background-color: #FFFFFF;z-inex: 50;
+        /*shadow */ -webkit-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); -moz-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15);}
+    .imf-country-container-left:hover .imfs-filter-holder,
+    .imf-country-container-left:focus .imfs-filter-holder{outline: 0;display:block;}
+
+    .imf-country-container-right{width: auto !important;padding-right: 35px; margin-left: 10px; margin: 10px;}
+}
+@media screen and (max-width: 600px){
+    /* country page */
+    .imf-country-container-right{padding-right: 20px;padding-top:35px;}
+
+    /* menu */
+    .imf-menu{position:relative;font-size: 0;}
+    .imf-menu-holder{background: #4285f4 url('../img/menu-icon.svg') no-repeat center right;background-size: 20px 20px;width:60px;height:29px;position:absolute;right:12px;top:3px;overflow:visible;cursor: pointer;}
+    .imf-menu-list{position: absolute;top: 29px;right:0px; display: none;z-index:1000;background-color:#FFFFFF;
+        /*shadow */ -webkit-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); -moz-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15);}
+    .imf-menu-holder:hover .imf-menu-list,
+    .imf-menu-holder:focus .imf-menu-list{display:block;}
+    .imf-menu li{padding:0px;margin-right:0px;display:block;}
+    .imf-menu li a{display:block;padding: 2px 10px 2px 10px;color: #555555; font-size: 12px;width:100%;cursor: pointer;}
+    .imf-menu li.imfs-active{border-bottom: none;background-color: #f2f2f2;}
+    .imf-menu li.imfs-active a,
+    .imf-menu li:hover a{color: #000000;transition: color .2s;}
+}
+@media screen and (max-width: 600px){
+    h1{font-size: 1.1em;}
+}
+@media screen and (max-width: 400px){
+    input, select, textarea{width: 100% !important;}
+}
