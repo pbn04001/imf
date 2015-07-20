@@ -1,3 +1,5 @@
 /* Country */
 .imf-country-container-left{width:220px;float: left;}
-.imf-country-container-right{float: left;margin-left: 0px; margin-right: 0px; width: calc(100% - 350px);}
+.imf-country-container-right{float: left;margin-left: 0px; margin-right: 0px; width: calc(100% - 350px);overflow: auto \9;}
+.imf-scrolling-table-cover-ie9{display:none;position:absolute;width:100%;backround-color: #ffffff; height: 10px;top: 0px;}
+table.imf-expandable-table thead{position: fixed \9;margin-right: 60px \9;}

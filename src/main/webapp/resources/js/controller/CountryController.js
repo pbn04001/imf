@@ -132,7 +132,13 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
             adjustConatinerSizes: function(){
                 var height = $(window).height();
                 $('#imf-country-statistics-filters').css('height', (height - 130));
-                $('#imf-country-statistics-grid').css('height',(height - 173));
+                var ie9 = false;
+                try {ie9 = window.navigator.userAgent.indexOf("MSIE 9.0") > -1;}catch(e){}
+                if(!ie9){
+                    $('#imf-country-statistics-grid').css('height', (height - 173));
+                }else{
+                    $('#imf-country-statistics-grid-holder').css('height', (height - 130));
+                }
             },
             graphStatistic: function(statistic){
                 var hasValue = false;

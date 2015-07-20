@@ -20,38 +20,47 @@
 
         </div>
     </section>
-    <section class="imf-container imf-country-container-right">
+    <section id='imf-country-statistics-grid-holder' class="imf-container imf-country-container-right">
 
+        <div class="imf-scrolling-table-cover-ie9"></div>
         <table id='imf-country-statistics-grid' class="table table-bordered imf-expandable-table" fixed-header>
             <thead>
             <tr><th>
-                <a href="#" onclick="return false;" ng-click="updateStatisticTable('weoSubjectCode')"
-                   class="{{sortType == 'weoSubjectCode' && 'imfs-active' || ''}}">
-                    WEO subject code
-                    <span ng-show="sortType == 'weoSubjectCode' && !sortReverse" class="imf-arrow-down"></span>
-                    <span ng-show="sortType == 'weoSubjectCode' && sortReverse" class="imf-arrow-up"></span>
-                </a>
+                <div>
+                    <a href="#" onclick="return false;" ng-click="updateStatisticTable('weoSubjectCode')"
+                       class="{{sortType == 'weoSubjectCode' && 'imfs-active' || ''}}">
+                        WEO subject code
+                        <span ng-show="sortType == 'weoSubjectCode' && !sortReverse" class="imf-arrow-down"></span>
+                        <span ng-show="sortType == 'weoSubjectCode' && sortReverse" class="imf-arrow-up"></span>
+                    </a>
+                </div>
             </th><th>
+                <div>
                 <a href="#" onclick="return false;" ng-click="updateStatisticTable('subjectDescriptor')"
                    class="{{sortType == 'subjectDescriptor' && 'imfs-active' || ''}}">
                     Subject descriptor
                     <span ng-show="sortType == 'subjectDescriptor' && !sortReverse" class="imf-arrow-down"></span>
                     <span ng-show="sortType == 'subjectDescriptor' && sortReverse" class="imf-arrow-up"></span>
                 </a>
+                    </div>
             </th><th>
+                <div>
                 <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticUnit')"
                    class="{{sortType == 'statisticUnit' && 'imfs-active' || ''}}">
                     Unit
                     <span ng-show="sortType == 'statisticUnit' && !sortReverse" class="imf-arrow-down"></span>
                     <span ng-show="sortType == 'statisticUnit' && sortReverse" class="imf-arrow-up"></span>
                 </a>
+                    </div>
             </th><th style="padding-right:25px;">
+                <div>
                 <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticScale')"
                    class="{{sortType == 'statisticScale' && 'imfs-active' || ''}}">
                     Scale
                     <span ng-show="sortType == 'statisticScale' && !sortReverse" class="imf-arrow-down"></span>
                     <span ng-show="sortType == 'statisticScale' && sortReverse" class="imf-arrow-up"></span>
                 </a>
+                    </div>
             </th></tr>
             </thead>
             <tbody>
