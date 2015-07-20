@@ -66,8 +66,10 @@
             <tr ng-if="statistic.expanded" ng-repeat-end="" class="{{$odd && 'imfs-row-body imfs-odd-row' || 'imfs-row-body'}}">
                 <td colspan="4">
                     <div class="imfs-row-body-inner">
-                        <img src="{{contextPath}}/images/graph-icon.svg" alt='Graph this statistic' title="Graph this statistic" ng-click="graphStatistic(statistic)"></img>
-                        <label style="margin-top:0px;">Subject Notes</label>
+
+                        <img ng-src="{{contextPath}}/images/graph-icon.svg" alt='Graph this statistic' title="Graph this statistic" ng-click="graphStatistic(statistic)"></img>
+                        <a ng-if="selectedCountry != null" ng-href="{{contextPath}}/#/summary/{{selectedCountry.iso}}/{{statistic.weoSubjectCode}}">Compare statistic</a>
+                        <label>Subject Notes</label>
                         {{statistic.subjectDescriptor}}
                         <span ng-if="statistic.countryNotes != null && statistic.countryNotes.trim().length > 0">
                             <label>Country Notes</label>

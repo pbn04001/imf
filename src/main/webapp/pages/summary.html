@@ -1,7 +1,7 @@
 <div ng-controller="SummaryController">
     <section class="imf-container">
         <div class="imf-filter">
-            <label>Country</label>
+            <label style="display:inline;padding-right:10px;">Country</label><a ng-if="selectedCountries[0] != null" ng-href="{{contextPath}}/#/country/{{selectedCountries[0].iso}}">view more info</a><br/>
             <select ng-model="selectedCountries[0]"
                     ng-options="country as country.countryName for country in countrySelectList"
                     ng-change="criteriaChange()"></select>

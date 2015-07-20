@@ -1,18 +1,41 @@
 /** Summary Controller **/
-IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory',
+IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory','$routeParams',
     'SummaryChartFactory','CountryFactory','StatisticFactory','DialogFactory',
-    function ($scope,$http,$log,$cacheFactory,
+    function ($scope,$http,$log,$cacheFactory,$routeParams,
               SummaryChartFactory,CountryFactory,StatisticFactory,DialogFactory){
         var me = $scope;
 
-        var _defaultISO = 'USA';
+        var _defaultCountryISO = 'USA';
         var _defaultWEOSubject = 'NGDPD';
 
         $.extend(me,{
             init: function(){
+                me.contextPath = imfGlobal.contextPath;
+                me.initialCountryISO = _defaultCountryISO;
+                me.initialWeoSubjectCode = _defaultWEOSubject;
+
                 me.initFromCache();
+                me.checkRoutingParameters();
                 me.loadStatistics();
                 me.populateSelects();
+            },
+            checkRoutingParameters: function(){
+                var updatePageDefaults = false;
+                if($routeParams.iso != null){
+                    me.initialCountryISO = $routeParams.iso;
+                    me.selectedCountries = [];
+                    updatePageDefaults = true;
+                }
+                if($routeParams.weoSubjectCode != null){
+                    me.initialWeoSubjectCode = $routeParams.weoSubjectCode;
+                    me.selectedStatistics = [];
+                    updatePageDefaults = true;
+                }
+                if(updatePageDefaults){
+                    me.pageDefaulted = false;
+                    var summaryControllerCache = me.getCache();
+                    summaryControllerCache.put('pageDefaulted', me.pageDefaulted);
+                }
             },
             getCache: function(){
                 var cacheInfo = $cacheFactory.info();
@@ -33,7 +56,7 @@ IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory',
                     function(payload) {
                         me.countrySelectList = payload;
                         if(me.selectedCountries[0] == null) {
-                            me.setDefaultCountry();
+                            me.initCountrySelects();
                         }
                     },
                     function(errorPayload){
@@ -53,8 +76,10 @@ IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory',
                 for(var i in me.statisticSelectList) {
                     var statistic = me.statisticSelectList[i];
                     statistic.displayName = '(' + statistic.weoSubjectCode + ') ' + statistic.weoSubjectTitle;
-                    if (me.selectedStatistics[0] == null && statistic.weoSubjectCode == _defaultWEOSubject) {
+                    if (me.selectedStatistics[0] == null && statistic.weoSubjectCode == me.initialWeoSubjectCode) {
                         me.selectedStatistics[0] = statistic;
+                        var summaryControllerCache = me.getCache();
+                        summaryControllerCache.put('selectedStatistics', me.selectedStatistics);
                     }
                 }
             },
@@ -65,41 +90,47 @@ IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory',
                     statistic.displayName = '(' + statistic.weoSubjectCode + ') ' + statistic.weoSubjectTitle;
                     if (statistic.weoSubjectCode == _defaultWEOSubject) {
                         me.selectedStatistics[0] = statistic;
+                        var summaryControllerCache = me.getCache();
+                        summaryControllerCache.put('selectedStatistics', me.selectedStatistics);
                     }
                 }
             },
-            setDefaultCountry: function(){
+            initCountrySelects: function(){
                 me.selectedCountries = [];
                 for (var i in me.countrySelectList) {
-                    if (me.countrySelectList[i].iso == _defaultISO) {
+                    if (me.countrySelectList[i].iso ==  me.initialCountryISO) {
                         me.selectedCountries[0] = me.countrySelectList[i];
+                        var summaryControllerCache = me.getCache();
+                        summaryControllerCache.put('selectedCountries', me.selectedCountries);
                         break;
                     }
                 }
             },
             criteriaChange: function() {
                 me.pageDefaulted = false;
-                me.updateCache();
+                me.upateEntireCache();
                 me.loadStatistics();
             },
-            updateCache: function(){
+            upateEntireCache: function(){
                 var summaryControllerCache = me.getCache();
                 summaryControllerCache.put('selectedCountries', me.selectedCountries);
                 summaryControllerCache.put('selectedStatistics', me.selectedStatistics);
                 summaryControllerCache.put('pageDefaulted', me.pageDefaulted);
             },
             resetToDefaults: function(){
-                me.setDefaultCountry();
-                me.setDefaultStatistics();
                 me.pageDefaulted = true;
-                me.updateCache();
+                me.initialCountryISO = _defaultCountryISO;
+                me.initialWeoSubjectCode =  _defaultWEOSubject;
+                me.initCountrySelects();
+                me.setDefaultStatistics();
+                me.upateEntireCache();
                 me.loadStatistics();
             },
             loadStatistics: function(){
-                var iso = me.selectedCountries.length == 0 ? _defaultISO :  me.selectedCountries[0].iso;
+                var iso = me.selectedCountries.length == 0 ? me.initialCountryISO :  me.selectedCountries[0].iso;
                 var weoSubjectCodes = null;
                 if(me.selectedStatistics.length == 0){
-                    weoSubjectCodes = [_defaultWEOSubject];
+                    weoSubjectCodes = [me.initialWeoSubjectCode];
                 }else{
                     var weoSubjectCodeArray = [];
                     for(var i in me.selectedStatistics){
@@ -107,7 +138,6 @@ IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory',
                     }
                     weoSubjectCodes = weoSubjectCodeArray;
                 }
-
                 var dataObj = {
                     iso:iso,
                     weoSubjectCodes: weoSubjectCodes

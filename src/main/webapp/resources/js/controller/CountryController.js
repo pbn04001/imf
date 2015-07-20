@@ -9,11 +9,14 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
         var _defaultSortReverse = false;
         var _defaultCountryISO = 'USA';
 
+
+
         $.extend(me,{
             init: function(){
                 me.contextPath = imfGlobal.contextPath;
-                me.initialCountryISO = $routeParams.iso != null ? $routeParams.iso : _defaultCountryISO;
+                me.initialCountryISO =  _defaultCountryISO;
                 me.initFromCache();
+                me.checkRoutingParams();
                 me.attachEvents();
                 me.adjustConatinerSizes();
                 me.loadCountryStatistics();
@@ -21,6 +24,16 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
             },getCache: function(){
                 var cacheInfo = $cacheFactory.info();
                 return cacheInfo.countryController == null ? $cacheFactory('countryController') : $cacheFactory.get('countryController');
+            },
+            checkRoutingParams: function(){
+                if($routeParams.iso != null){
+                    me.initialCountryISO = $routeParams.iso;
+                    me.selectedCountry = null;
+                    me.selectedCountrySelect = null;
+                    me.pageDefaulted = false;
+                    var countryControllerCache = me.getCache();
+                    countryControllerCache.put('pageDefaulted', me.pageDefaulted);
+                }
             },
             initFromCache: function(){
                 var countryControllerCache = me.getCache();
@@ -62,6 +75,7 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
             },
             resetToDefaults: function(){
                 me.pageDefaulted = true;
+                me.initialCountryISO =  _defaultCountryISO;
                 me.setDefaultCountry();
                 me.searchStatistics = '';
                 me.sortType = _defaultSortType;
@@ -86,6 +100,8 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
                 for (var i in me.countrySelectList) {
                     if (me.countrySelectList[i].iso == me.initialCountryISO) {
                         me.selectedCountrySelect = me.countrySelectList[i];
+                        var countryControllerCache = me.getCache();
+                        countryControllerCache.put('selectedCountrySelect',me.selectedCountrySelect);
                         break;
                     }
                 }

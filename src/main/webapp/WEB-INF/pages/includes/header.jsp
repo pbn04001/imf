@@ -6,7 +6,7 @@
         <h1>International Monetary Fund Analytics</h1>
     </div>
     <nav class='imf-menu'>
-        <div class="imf-menu-holder" tabindex="1">
+        <div class="imf-menu-holder">
             <ul class='imf-menu-list'>
                 <li ng-class='pageSummary'><a href="#/summary">Summary</a></li>
                 <li ng-class='pageCountry'><a href="#/country">Country Statistics</a></li>

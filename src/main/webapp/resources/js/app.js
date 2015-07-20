@@ -22,6 +22,10 @@ IMFApp.config(['$routeProvider','$logProvider',
                 templateUrl: imfGlobal.contextPath + '/pages/country.html?v=' + imfGlobal.applicationVersion,
                 controller: 'CountryPageCtrl'
             }).
+            when('/summary/:iso/:weoSubjectCode', {
+                templateUrl: imfGlobal.contextPath + '/pages/summary.html?v=' + imfGlobal.applicationVersion,
+                controller: 'SummaryPageCtrl'
+            }).
 
 
             otherwise({
