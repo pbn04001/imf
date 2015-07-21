@@ -8,9 +8,8 @@ IMFApp.controller('SummaryController',['$scope','$http','$log','$cacheFactory','
         var _defaultCountryISO = 'USA';
         var _defaultWEOSubject = 'NGDPD';
 
-        $.extend(me,{
+        angular.extend(me,{
             init: function(){
-                me.contextPath = imfGlobal.contextPath;
                 me.initialCountryISO = _defaultCountryISO;
                 me.initialWeoSubjectCode = _defaultWEOSubject;
 

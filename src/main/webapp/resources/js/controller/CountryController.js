@@ -9,11 +9,8 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
         var _defaultSortReverse = false;
         var _defaultCountryISO = 'USA';
 
-
-
-        $.extend(me,{
+        angular.extend(me,{
             init: function(){
-                me.contextPath = imfGlobal.contextPath;
                 me.initialCountryISO =  _defaultCountryISO;
                 me.initFromCache();
                 me.checkRoutingParams();
@@ -132,13 +129,7 @@ IMFApp.controller('CountryController',['$scope','$http','$routeParams','$cacheFa
             adjustConatinerSizes: function(){
                 var height = $(window).height();
                 $('#imf-country-statistics-filters').css('height', (height - 130));
-                var ie9 = false;
-                try {ie9 = window.navigator.userAgent.indexOf("MSIE 9.0") > -1;}catch(e){}
-                if(!ie9){
-                    $('#imf-country-statistics-grid').css('height', (height - 173));
-                }else{
-                    $('#imf-country-statistics-grid-holder').css('height', (height - 130));
-                }
+                $('#imf-country-fixed-table-header-container').css('height', (height - 167));
             },
             graphStatistic: function(statistic){
                 var hasValue = false;

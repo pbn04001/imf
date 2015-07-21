@@ -9,20 +9,18 @@
     /* common */
     .imf-container{margin:10px;}
 
-    /* country page */
-    .imf-country-container-left{position: absolute;background: url('../img/menu-icon-dots.svg') no-repeat center right;background-size: 3px 20px; top: 20px;
-        right: 25px;z-index:50; width: 20px; height: 20px !important; margin:0px; padding:0px; overflow: visible;
+    /* left and right containers */
+    .imf-container.imfs-container-left{position: absolute;background: url('../img/menu-icon-dots.svg') no-repeat center right;background-size: 20px 20px; top: 20px;
+        right: 23px;z-index:50; width: 20px; height: 20px !important; margin:0px; padding:0px; overflow: visible;
         /* shadow */ -webkit-box-shadow: none;  -moz-box-shadow: none;  box-shadow: none;}
-    .imf-country-container-left .imfs-filter-holder{padding: 10px; display:none;position: absolute; top: 0px; right: 0px; height: auto !important; background-color: #FFFFFF;z-inex: 50;
+    .imf-container.imfs-container-left .imfs-filter-holder{padding: 10px; display:none;position: absolute; top: 0px; right: 0px; height: auto !important; background-color: #FFFFFF;z-inex: 50;cursor: pointer;
         /*shadow */ -webkit-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); -moz-box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15); box-shadow: 1px 1px 1px 2px rgba(0,0,0,0.15);}
-    .imf-country-container-left:hover .imfs-filter-holder,
-    .imf-country-container-left:focus .imfs-filter-holder{outline: 0;display:block;}
-
-    .imf-country-container-right{width: auto !important;padding-right: 35px; margin-left: 10px; margin: 10px;}
+    .imf-container.imfs-container-left:hover .imfs-filter-holder,
+    .imf-container.imfs-container-left:focus .imfs-filter-holder{outline: 0;display:block;}
+    .imf-container.imfs-container-right{width: auto;margin: 10px 40px 10px 10px; padding-right: 40px;overflow:hidden;right: 10px;}
 }
 @media screen and (max-width: 600px){
-    /* country page */
-    .imf-country-container-right{padding-right: 20px;padding-top:35px;}
+    h1{font-size: 1.1em;}
 
     /* menu */
     .imf-menu{position:relative;font-size: 0;}
@@ -37,8 +35,10 @@
     .imf-menu li.imfs-active a,
     .imf-menu li:hover a{color: #000000;transition: color .2s;}
 }
-@media screen and (max-width: 600px){
-    h1{font-size: 1.1em;}
+@media screen and (max-width: 500px){
+    table td{font-size: 12px;}
+    .imf-container.imfs-container-right{padding-right: 10px;padding-top: 40px;}
+    .imf-fixed-table-header a{font-size: 12px;}
 }
 @media screen and (max-width: 400px){
     input, select, textarea{width: 100% !important;}

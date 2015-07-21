@@ -1,5 +1,8 @@
 /** Menu Controller **/
-var menuController = IMFApp.controller('MenuController',['$scope','$http',function ($scope,$http) {
+var menuController = IMFApp.controller('MenuController',['$scope','$rootScope',
+    function ($scope,$rootScope) {
+
+    $rootScope.contextPath = imfGlobal.contextPath;
     $scope.pageSummary = "test";
 
     menuController.pageChange = function(page){

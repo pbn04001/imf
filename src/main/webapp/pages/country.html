@@ -1,7 +1,7 @@
 <div id='imf-page-content' class='imf-page-content' ng-controller="CountryController">
 
 
-    <section id='imf-country-statistics-filters' class="imf-container imf-country-container-left">
+    <section id='imf-country-statistics-filters' class="imf-container imfs-container-left">
         <div class='imfs-filter-holder'>
             <label>Country</label>
             <select ng-model="selectedCountrySelect"
@@ -20,12 +20,10 @@
 
         </div>
     </section>
-    <section id='imf-country-statistics-grid-holder' class="imf-container imf-country-container-right">
+    <section class="imf-container imfs-container-right">
 
-        <div class="imf-scrolling-table-cover-ie9"></div>
-        <table id='imf-country-statistics-grid' class="table table-bordered imf-expandable-table" fixed-header>
-            <thead>
-            <tr><th>
+        <div class="imf-fixed-table-header-container" fixed-table-header="['selectedCountry']">
+            <div class="imf-fixed-table-header">
                 <div>
                     <a href="#" onclick="return false;" ng-click="updateStatisticTable('weoSubjectCode')"
                        class="{{sortType == 'weoSubjectCode' && 'imfs-active' || ''}}">
@@ -33,62 +31,59 @@
                         <span ng-show="sortType == 'weoSubjectCode' && !sortReverse" class="imf-arrow-down"></span>
                         <span ng-show="sortType == 'weoSubjectCode' && sortReverse" class="imf-arrow-up"></span>
                     </a>
+                </div><div>
+                    <a href="#" onclick="return false;" ng-click="updateStatisticTable('subjectDescriptor')"
+                       class="{{sortType == 'subjectDescriptor' && 'imfs-active' || ''}}">
+                        Subject descriptor
+                        <span ng-show="sortType == 'subjectDescriptor' && !sortReverse" class="imf-arrow-down"></span>
+                        <span ng-show="sortType == 'subjectDescriptor' && sortReverse" class="imf-arrow-up"></span>
+                    </a>
+                </div><div>
+                    <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticUnit')"
+                       class="{{sortType == 'statisticUnit' && 'imfs-active' || ''}}">
+                        Unit
+                        <span ng-show="sortType == 'statisticUnit' && !sortReverse" class="imf-arrow-down"></span>
+                        <span ng-show="sortType == 'statisticUnit' && sortReverse" class="imf-arrow-up"></span>
+                    </a>
+                </div><div>
+                    <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticScale')"
+                       class="{{sortType == 'statisticScale' && 'imfs-active' || ''}}">
+                        Scale
+                        <span ng-show="sortType == 'statisticScale' && !sortReverse" class="imf-arrow-down"></span>
+                        <span ng-show="sortType == 'statisticScale' && sortReverse" class="imf-arrow-up"></span>
+                    </a>
                 </div>
-            </th><th>
-                <div>
-                <a href="#" onclick="return false;" ng-click="updateStatisticTable('subjectDescriptor')"
-                   class="{{sortType == 'subjectDescriptor' && 'imfs-active' || ''}}">
-                    Subject descriptor
-                    <span ng-show="sortType == 'subjectDescriptor' && !sortReverse" class="imf-arrow-down"></span>
-                    <span ng-show="sortType == 'subjectDescriptor' && sortReverse" class="imf-arrow-up"></span>
-                </a>
-                    </div>
-            </th><th>
-                <div>
-                <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticUnit')"
-                   class="{{sortType == 'statisticUnit' && 'imfs-active' || ''}}">
-                    Unit
-                    <span ng-show="sortType == 'statisticUnit' && !sortReverse" class="imf-arrow-down"></span>
-                    <span ng-show="sortType == 'statisticUnit' && sortReverse" class="imf-arrow-up"></span>
-                </a>
-                    </div>
-            </th><th style="padding-right:25px;">
-                <div>
-                <a href="#" onclick="return false;" ng-click="updateStatisticTable('statisticScale')"
-                   class="{{sortType == 'statisticScale' && 'imfs-active' || ''}}">
-                    Scale
-                    <span ng-show="sortType == 'statisticScale' && !sortReverse" class="imf-arrow-down"></span>
-                    <span ng-show="sortType == 'statisticScale' && sortReverse" class="imf-arrow-up"></span>
-                </a>
-                    </div>
-            </th></tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat-start="statistic in selectedCountry.countryStatistics | orderBy:sortType:sortReverse | filter:searchStatistics"
-                ng-click="rowClicked(statistic)" style="cursor:pointer;"
-                class="{{$odd && 'imfs-odd-row' || ''}} {{statistic.expanded && 'imfs-row-expanded' || ''}}">
-                    <td>{{ statistic.weoSubjectCode }}</td>
-                    <td>{{ statistic.subjectDescriptor }}</td>
-                    <td>{{ statistic.statisticUnit }}</td>
-                    <td>{{ statistic.statisticScale }}</td>
-            </tr>
-            <tr ng-if="statistic.expanded" ng-repeat-end="" class="{{$odd && 'imfs-row-body imfs-odd-row' || 'imfs-row-body'}}">
-                <td colspan="4">
-                    <div class="imfs-row-body-inner">
+            </div>
+            <div id="imf-country-fixed-table-header-container" class="imf-fixed-table-header-container-scroller">
+                <table id='imf-country-fixed-table-body' class="table table-bordered imf-expandable-table imf-fixed-table-body">
+                    <tbody>
+                    <tr ng-repeat-start="statistic in selectedCountry.countryStatistics | orderBy:sortType:sortReverse | filter:searchStatistics"
+                        ng-click="rowClicked(statistic)" style="cursor:pointer;"
+                        class="{{$odd && 'imfs-odd-row' || ''}} {{statistic.expanded && 'imfs-row-expanded' || ''}}">
+                            <td>{{ statistic.weoSubjectCode }}</td>
+                            <td>{{ statistic.subjectDescriptor }}</td>
+                            <td>{{ statistic.statisticUnit }}</td>
+                            <td>{{ statistic.statisticScale }}</td>
+                    </tr>
+                    <tr ng-if="statistic.expanded" ng-repeat-end="" class="{{$odd && 'imfs-row-body imfs-odd-row' || 'imfs-row-body'}}">
+                        <td colspan="4">
+                            <div class="imfs-row-body-inner">
 
-                        <img ng-src="{{contextPath}}/images/graph-icon.svg" alt='Graph this statistic' title="Graph this statistic" ng-click="graphStatistic(statistic)"></img>
-                        <a ng-if="selectedCountry != null" ng-href="{{contextPath}}/#/summary/{{selectedCountry.iso}}/{{statistic.weoSubjectCode}}">Compare statistic</a>
-                        <label>Subject Notes</label>
-                        {{statistic.subjectDescriptor}}
-                        <span ng-if="statistic.countryNotes != null && statistic.countryNotes.trim().length > 0">
-                            <label>Country Notes</label>
-                            {{statistic.countryNotes}}
-                        </span>
-                    </div>
-                </td>
-            </tr></tbody>
-        </table>
-
+                                <img ng-src="{{contextPath}}/images/graph-icon.svg" alt='Graph this statistic' title="Graph this statistic" ng-click="graphStatistic(statistic)"></img>
+                                <a ng-if="selectedCountry != null" ng-href="{{contextPath}}/#/summary/{{selectedCountry.iso}}/{{statistic.weoSubjectCode}}">Compare statistic</a>
+                                <label>Subject Notes</label>
+                                {{statistic.subjectDescriptor}}
+                                <span ng-if="statistic.countryNotes != null && statistic.countryNotes.trim().length > 0">
+                                    <label>Country Notes</label>
+                                    {{statistic.countryNotes}}
+                                </span>
+                            </div>
+                        </td>
+                    </tr></tbody>
+                </table>
+            </div>
+        </div>
     </section>
+
 
 </div>

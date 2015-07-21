@@ -25,7 +25,6 @@
     <!-- AngularJS -->
     <script type="text/javascript" src="${contextPath}/resources/angularjs/angular.js?v=1.4.3"></script>
     <script type="text/javascript" src="${contextPath}/resources/angularjs/angular-route.js?v=1.4.3"></script>
-    <script type="text/javascript" src="${contextPath}/resources/angularjs/custom/angular-fixed-header-table.js?v=1.2.0"></script>
     <c:choose>
         <c:when test="${'PROD' == runtimeEnvironment}">
             <link href="${contextPath}/versioned/${applicationVersion}/minified/imf.min.css" rel="stylesheet" type="text/css" />

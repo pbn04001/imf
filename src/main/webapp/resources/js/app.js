@@ -1,9 +1,9 @@
 'use strict';
 
-var IMFApp = angular.module('IMFApp', ['ngRoute','anguFixedHeaderTable']);
+var IMFApp = angular.module('IMFApp', ['ngRoute','FixedTableHeaderModule']);
 
 IMFApp.config(['$routeProvider','$logProvider',
-    function($routeProvider,$logProvider) {
+    function($routeProvider,$logProvider){
         $logProvider.debugEnabled(true);
         $routeProvider.
             when('/kpi', {
@@ -26,8 +26,6 @@ IMFApp.config(['$routeProvider','$logProvider',
                 templateUrl: imfGlobal.contextPath + '/pages/summary.html?v=' + imfGlobal.applicationVersion,
                 controller: 'SummaryPageCtrl'
             }).
-
-
             otherwise({
                 redirectTo: '/summary'
             });
