@@ -7,24 +7,26 @@
         var imfGlobal = {
             contextPath: '${contextPath}',
             applicationVersion: '${applicationVersion}',
-            angularJSVersion : '1.4.3'
-        };
-        var imfGlobalMessages = {
-            unhandledException: '${unhandledException}',
+            angularJSVersion : '1.4.3',
+            messages: {
+                unhandledException: '${unhandledException}'
+            }
         };
     </script>
     <!-- Stylesheets -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
-    <link href="${contextPath}/resources/bootstrap/css/bootstrap.min.css?v=2.3.2" rel="stylesheet" type="text/css" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/assets/lib/bootstrap/css/bootstrap.min.css?v=2.3.2" rel="stylesheet" type="text/css" />
+    <%--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">--%>
 
     <!-- JavaScript Libraries-->
-    <script type="text/javascript" src="${contextPath}/resources/jquery/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/highcharts/highcharts.js?v=4.1.7"></script>
-    <script type="text/javascript" src="${contextPath}/resources/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
+    <script type="text/javascript" src="${contextPath}/assets/lib/jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="${contextPath}/assets/lib/highcharts/highcharts.js?v=4.1.7"></script>
+    <script type="text/javascript" src="${contextPath}/assets/lib/bootstrap/js/bootstrap.min.js?v=3.3.5"></script>
     <!-- AngularJS -->
-    <script type="text/javascript" src="${contextPath}/resources/angularjs/angular.js?v=1.4.3"></script>
-    <script type="text/javascript" src="${contextPath}/resources/angularjs/angular-route.js?v=1.4.3"></script>
+    <script type="text/javascript" src="${contextPath}/assets/lib/angularjs/angular.js?v=1.4.3"></script>
+    <script type="text/javascript" src="${contextPath}/assets/lib/angularjs/angular-route.js?v=1.4.3"></script>
+
+    <script scr="path/to/route-styles.js"></script>
     <c:choose>
         <c:when test="${'PROD' == runtimeEnvironment}">
             <link href="${contextPath}/versioned/${applicationVersion}/minified/imf.min.css" rel="stylesheet" type="text/css" />

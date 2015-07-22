@@ -73,15 +73,15 @@ public class IndexController {
     private void dynamicallyIncludeAllJavascriptFiles(String contextPath, Model model){
         StringBuilder javascriptIncludes = new StringBuilder();
 
-        Collection<File> files = FileUtils.listFiles(new File(servletContext.getRealPath("resources/js")), new String[]{"js"}, true);
+        Collection<File> files = FileUtils.listFiles(new File(servletContext.getRealPath("app")), new String[]{"js"}, true);
         Iterator<File> fileIterator = files.iterator();
         while(fileIterator.hasNext()){
             File file = fileIterator.next();
             try {
                 String filePath = file.getCanonicalPath();
                 filePath = filePath.replace("\\","/");
-                filePath = filePath.split("/resources")[1];
-                javascriptIncludes.append("<script type='text/javascript' src='" + contextPath + "/resources" + filePath + "'></script>");
+                filePath = filePath.split("/app/")[1];
+                javascriptIncludes.append("<script type='text/javascript' src='" + contextPath + "/app/" + filePath + "'></script>");
             } catch (IOException e) {
                 _log.error(e.getLocalizedMessage(),e);
             }
@@ -92,15 +92,15 @@ public class IndexController {
     private void dynamicallyIncludeAllStylesheetFiles(String contextPath,Model model){
         StringBuilder javascriptIncludes = new StringBuilder();
 
-        Collection<File> files = FileUtils.listFiles(new File(servletContext.getRealPath("resources/css")),new String[]{"css"},true);
+        Collection<File> files = FileUtils.listFiles(new File(servletContext.getRealPath("assets/css")),new String[]{"css"},true);
         Iterator<File> fileIterator = files.iterator();
         while(fileIterator.hasNext()){
             File file = fileIterator.next();
             try {
                 String filePath = file.getCanonicalPath();
                 filePath = filePath.replace("\\","/");
-                filePath = filePath.split("/resources")[1];
-                javascriptIncludes.append("<link type='text/css' rel='stylesheet' href='" + contextPath + "/resources" + filePath + "'/>");
+                filePath = filePath.split("/assets/")[1];
+                javascriptIncludes.append("<link type='text/css' rel='stylesheet' href='" + contextPath + "/assets/" + filePath + "'/>");
             } catch (IOException e) {
                 _log.error(e.getLocalizedMessage(),e);
             }

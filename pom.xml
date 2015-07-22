@@ -152,12 +152,12 @@
 				<configuration>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 					<packagingExcludes>
-						resources/css/,
-						resources/js/,
-						resources/img/,
-                        temporary/,
-                        versioned/${app.version}/css/,
-                        versioned/${app.version}/js/
+						assets/css/,
+						app/,
+						assets/img/,
+						temporary/,
+						versioned/${app.version}/css/,
+						versioned/${app.version}/js/
 					</packagingExcludes>
 				</configuration>
 			</plugin>
@@ -193,8 +193,8 @@
 				<version>1.1</version>
 				<executions>
 					<execution>
-						<id>compile</id>
-						<phase>initialize</phase>
+						<id>prepare-directories</id>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
@@ -218,7 +218,7 @@
 				<executions>
 					<execution>
 						<id>copy-js-resources</id>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -226,14 +226,14 @@
 							<outputDirectory>${webapp.dir}/temporary/css</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${webapp.dir}/resources/css</directory>
+									<directory>${webapp.dir}/assets/css</directory>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 					<execution>
 						<id>copy-css-resources</id>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -241,14 +241,14 @@
 							<outputDirectory>${webapp.dir}/temporary/js</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${webapp.dir}/resources/js</directory>
+									<directory>${webapp.dir}/app</directory>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 					<execution>
 						<id>copy-img-resources</id>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -256,7 +256,7 @@
 							<outputDirectory>${webapp.dir}/versioned/${app.version}/img</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${webapp.dir}/resources/img</directory>
+									<directory>${webapp.dir}/assets/img</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -272,7 +272,7 @@
 				<executions>
 					<execution>
 						<id>combine-minify-files</id>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>compress</goal>
 						</goals>
@@ -313,14 +313,14 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.1</version>
 				<executions>
 					<execution>
 						<id>delete-temporary-files</id>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
@@ -333,30 +333,30 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <executions>
-                    <execution>
-                        <id>clean-resources-2</id>
-                        <phase>clean</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <followSymLinks>false</followSymLinks>
-                    <filesets>
-                        <fileset>
-                            <directory>${webapp.dir}/temporary</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>${webapp.dir}/versioned</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<id>clean-resources</id>
+						<phase>clean</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<followSymLinks>false</followSymLinks>
+					<filesets>
+						<fileset>
+							<directory>${webapp.dir}/temporary</directory>
+						</fileset>
+						<fileset>
+							<directory>${webapp.dir}/versioned</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</build>

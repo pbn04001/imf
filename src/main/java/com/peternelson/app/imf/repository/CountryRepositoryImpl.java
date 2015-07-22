@@ -18,6 +18,11 @@ import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CodingErrorAction;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -38,6 +43,10 @@ public class CountryRepositoryImpl implements CountryRepository,Serializable{
     @Cacheable(cacheName = "allCountries")
     public List<Country> readIMFCountriesFromFile() throws IOException, BiffException {
 
+        CharsetDecoder utf8Decoder = Charset.forName("UTF-8").newDecoder();
+        utf8Decoder.onMalformedInput(CodingErrorAction.IGNORE);
+        utf8Decoder.onUnmappableCharacter(CodingErrorAction.IGNORE);
+
         File inputWorkbook =  new File(servletContext.getRealPath("/WEB-INF/data/WEOOct2014all.xls"));
 
         Workbook w  = Workbook.getWorkbook(inputWorkbook);
@@ -54,7 +63,10 @@ public class CountryRepositoryImpl implements CountryRepository,Serializable{
                     country = new Country();
                     country.setWeoCountryCode(weoCountryCode);
                     country.setIso(sheet.getCell(1, i).getContents());
-                    country.setCountryName(sheet.getCell(3, i).getContents());
+                    String countryName = sheet.getCell(3, i).getContents();
+                    if(countryName != null) {
+                        country.setCountryName(utf8Decoder.decode(ByteBuffer.wrap(countryName.getBytes())).toString());
+                    }
                     imfCountries.add(country);
                 }
 

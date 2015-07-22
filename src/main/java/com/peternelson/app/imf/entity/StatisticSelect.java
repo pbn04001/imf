@@ -8,14 +8,16 @@ public class StatisticSelect {
     private String weoSubjectTitle = null;
     private String units = null;
     private String scale = null;
+    private Integer estimatesStartAfter = null;
 
     public StatisticSelect() {}
 
-    public StatisticSelect(String weoSubjectCode, String weoSubjectTitle, String units, String scale) {
+    public StatisticSelect(String weoSubjectCode, String weoSubjectTitle, String units, String scale,Integer estimatesStartAfter) {
         this.weoSubjectCode = weoSubjectCode;
         this.weoSubjectTitle = weoSubjectTitle;
         this.units = units;
         this.scale = scale;
+        this.estimatesStartAfter = estimatesStartAfter;
     }
 
     public String getWeoSubjectCode() {
@@ -48,5 +50,13 @@ public class StatisticSelect {
 
     public void setScale(String scale) {
         this.scale = scale;
+    }
+
+    public Integer getEstimatesStartAfter() {
+        return estimatesStartAfter;
+    }
+
+    public void setEstimatesStartAfter(Integer estimatesStartAfter) {
+        this.estimatesStartAfter = estimatesStartAfter;
     }
 }

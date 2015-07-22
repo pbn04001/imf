@@ -62,7 +62,7 @@ public class CountryServiceImpl implements CountryService,Serializable {
             if(countryStatistic.getStatisticScale() != null){
                 scale = countryStatistic.getStatisticScale().toString();
             }
-            statisticSelectList.add(new StatisticSelect(countryStatistic.getWeoSubjectCode(), countryStatistic.getSubjectDescriptor(), unit,scale));
+            statisticSelectList.add(new StatisticSelect(countryStatistic.getWeoSubjectCode(), countryStatistic.getSubjectDescriptor(), unit,scale,countryStatistic.getEstimatesStartAfter()));
         }
 
         return statisticSelectList;
