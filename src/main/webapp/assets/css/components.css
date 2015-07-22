@@ -1,0 +1,10 @@
+/* Fixed table header */
+.imf-fixed-table-header-container{background-color: #acc1ec;border-top-right-radius: 3px;border-top-left-radius: 3px;}
+.imf-fixed-table-header-container-scroller{position:relative;overflow:auto;padding-right:2px;border-bottom: 1px solid #dddddd;background-color: #ffffff;}
+.imf-fixed-table-header{height: 36px;white-space:nowrap;overflow:hidden;}
+.imf-fixed-table-header div{display:inline-block;padding:8px;overflow:hidden;white-space:nowrap;color: #555;border-right:#000000 !important;}
+    /*-webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box;}*/
+.imf-fixed-table-header div a{color: #555;white-space: nowrap; overflow: hidden;font-weight: 700;}
+.imf-fixed-table-header div a:hover,
+.imf-fixed-table-header div a.imfs-active{color: #000000;transition: color .2s;}
+.imf-fixed-table-header div a.imfs-active{padding-right:15px;}

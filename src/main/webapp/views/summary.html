@@ -1,0 +1,60 @@
+<div ng-controller="SummaryController">
+    <section class="imf-container imfv-summary-top-container">
+        <div class="imf-filter">
+            <label style="display:inline;padding-right:10px;">Country</label><a ng-if="selectedCountries[0] != null" ng-href="{{contextPath}}/#/country/{{selectedCountries[0].iso}}">view more info</a><br/>
+            <select ng-model="selectedCountries[0]"
+                    ng-options="country as country.countryName for country in countrySelectList"
+                    ng-change="criteriaChange()"></select>
+
+            <div ng-if="selectedCountries[0] != null" class="imf-object-details">
+                <strong>Country Code</strong> {{selectedCountries[0].countryName}}<br/>
+                <strong>ISO</strong> {{selectedCountries[0].iso}}
+            </div>
+
+        </div>
+
+        <div class="imf-filter">
+            <label>Statistic 1</label>
+            <select
+                    ng-model="selectedStatistics[0]"
+                    ng-options="statistic as statistic.displayName for statistic in statisticSelectList"
+                    ng-change="criteriaChange()"></select>
+
+            <div ng-if="selectedStatistics[0] != null" class="imf-object-details">
+                <strong>Units</strong> {{selectedStatistics[0].units}}<br/>
+                <strong>Estimates Start After</strong> {{selectedStatistics[0].estimatesStartAfter}}
+            </div>
+        </div>
+
+        <div class="imf-filter">
+            <div>
+                <label>Statistic 2</label>
+                <select class="imf-statistic-select"
+                        ng-model="selectedStatistics[1]"
+                        ng-options="statistic as statistic.displayName for statistic in statisticSelectList"
+                        ng-change="criteriaChange()">
+                    <option style="display:none" value="">-- Select another statistic --</option>
+                </select>
+                <div ng-if="selectedStatistics[1] != null" ng-click="clearStatistic(1)" class="imf-close-icon" title="Clear second statistic"></div>
+            </div>
+            <div>
+                <div ng-if="selectedStatistics[1] != null" class="imf-object-details">
+                    <strong>Units</strong> {{selectedStatistics[1].units}}<br/>
+                    <strong>Estimates Start After</strong> {{selectedStatistics[1].estimatesStartAfter}}
+                </div>
+            </div>
+
+
+        </div>
+
+        <div ng-if="!pageDefaulted" class="imfv-reset-page-defaults">
+            <a  href="#" onclick="return false;" ng-click="resetToDefaults()">reset page to defaults</a>
+        </div>
+
+
+    </section>
+    <section class="imf-container">
+        <div id="imf-summary-chart-div" style="width:100%; height:400px;"></div>
+    </section>
+
+</div>
